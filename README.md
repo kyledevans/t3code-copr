@@ -26,6 +26,15 @@ Update it through the normal DNF flow:
 sudo dnf upgrade
 ```
 
+The launcher disables T3 Code's bundled AppImage/Electron updater by default
+with `T3CODE_DISABLE_AUTO_UPDATE=true` so the RPM remains the single owner of
+the installed application bits. To test the upstream updater manually, override
+the variable for that launch:
+
+```bash
+T3CODE_DISABLE_AUTO_UPDATE=false t3code
+```
+
 If the Copr repo was enabled before a new build published, refresh metadata:
 
 ```bash
