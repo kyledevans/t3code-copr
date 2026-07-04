@@ -2,3 +2,4 @@
 *.rpm
 *.src.rpm
 /rpmbuild/
+/.copr-sources/

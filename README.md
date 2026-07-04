@@ -77,8 +77,13 @@ Intended Copr configuration:
 1. Create a Copr project named `t3code-nightly`.
 2. Add this GitHub repository as an SCM/Git package source.
 3. Point Copr at `t3code-nightly.spec`.
-4. Enable webhook/autorebuild if supported.
-5. Alternatively, trigger Copr builds manually after the GitHub Action updates
+4. Select the `make srpm` SRPM build method. The checked-in `.copr/Makefile`
+   downloads the pinned upstream AppImage from `Source0` before creating the
+   source RPM.
+5. Enable internet access during builds so the pinned upstream AppImage can be
+   downloaded.
+6. Enable webhook/autorebuild if supported.
+7. Alternatively, trigger Copr builds manually after the GitHub Action updates
    the spec.
 
 Once Copr is configured:
