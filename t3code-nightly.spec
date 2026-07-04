@@ -13,7 +13,10 @@ Source2:        t3code.desktop
 Source3:        LICENSE
 Source4:        README.md
 
-BuildArch:      x86_64
+# The upstream AppImage is x86_64-only. Use ExclusiveArch instead of
+# BuildArch: x86_64 so Copr can create the SRPM in its source-build
+# environment and then build the binary RPM only for x86_64 chroots.
+ExclusiveArch:  x86_64
 BuildRequires:  desktop-file-utils
 
 %description

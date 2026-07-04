@@ -79,8 +79,8 @@ Intended Copr configuration:
 3. Point Copr at `t3code-nightly.spec`.
 4. Select the `make srpm` SRPM build method. The checked-in `.copr/Makefile`
    downloads the pinned upstream AppImage from `Source0` before creating the
-   source RPM. It passes `--target x86_64` because Copr may run the SRPM
-   generator on a non-x86_64 builder even though the package is x86_64-only.
+   source RPM. The spec uses `ExclusiveArch: x86_64` because the upstream
+   AppImage is x64-only.
 5. Enable internet access during builds so the pinned upstream AppImage can be
    downloaded.
 6. Enable webhook/autorebuild if supported.

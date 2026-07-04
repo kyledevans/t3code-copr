@@ -4,6 +4,7 @@
 # The spec intentionally pins Source0 to an upstream AppImage release URL.
 # rpmbuild does not fetch URL sources on its own, so this target downloads the
 # pinned AppImage into a temporary SOURCES directory before creating the SRPM.
+# The package itself is x86_64-only through ExclusiveArch in the spec.
 
 REPO_ROOT := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST))))..)
 SOURCES_DIR := $(REPO_ROOT)/.copr-sources
@@ -22,7 +23,6 @@ srpm:
 	cp "$(REPO_ROOT)/LICENSE" "$(SOURCES_DIR)/"
 	cp "$(REPO_ROOT)/README.md" "$(SOURCES_DIR)/"
 	rpmbuild -bs \
-	  --target x86_64 \
 	  --define "_sourcedir $(SOURCES_DIR)" \
 	  --define "_srcrpmdir $(outdir)" \
 	  "$(spec)"
