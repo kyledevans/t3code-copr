@@ -22,6 +22,7 @@ srpm:
 	cp "$(REPO_ROOT)/LICENSE" "$(SOURCES_DIR)/"
 	cp "$(REPO_ROOT)/README.md" "$(SOURCES_DIR)/"
 	rpmbuild -bs \
+	  --target x86_64 \
 	  --define "_sourcedir $(SOURCES_DIR)" \
 	  --define "_srcrpmdir $(outdir)" \
 	  "$(spec)"
