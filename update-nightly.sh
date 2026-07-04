@@ -24,6 +24,7 @@ from pathlib import Path
 
 REPO = "pingdotgg/t3code"
 SPEC_FILE = Path("t3code-nightly.spec")
+METAINFO_FILE = Path("io.github.pingdotgg.t3code.metainfo.xml")
 API_URL = f"https://api.github.com/repos/{REPO}/releases?per_page=50"
 
 
@@ -105,6 +106,31 @@ def replace_line(text: str, field: str, value: str) -> str:
     return updated
 
 
+def release_date(release: dict, tag: str) -> str:
+    published_at = release.get("published_at") or ""
+    if re.match(r"^\d{4}-\d{2}-\d{2}T", published_at):
+        return published_at[:10]
+
+    match = re.search(r"nightly\.(\d{4})(\d{2})(\d{2})", tag)
+    if match:
+        return f"{match.group(1)}-{match.group(2)}-{match.group(3)}"
+
+    fail(f"could not determine release date for {tag}")
+
+
+def update_metainfo(version: str, date: str) -> None:
+    if not METAINFO_FILE.is_file():
+        fail(f"missing {METAINFO_FILE}")
+
+    text = METAINFO_FILE.read_text(encoding="utf-8")
+    pattern = r'<release version="[^"]+" date="[^"]+" />'
+    replacement = f'<release version="{version}" date="{date}" />'
+    updated, count = re.subn(pattern, replacement, text, count=1)
+    if count != 1:
+        fail(f"could not update release metadata in {METAINFO_FILE}")
+    METAINFO_FILE.write_text(updated, encoding="utf-8", newline="\n")
+
+
 def main() -> None:
     if not SPEC_FILE.is_file():
         fail(f"run from the repository root; missing {SPEC_FILE}")
@@ -122,6 +148,7 @@ def main() -> None:
         fail(f"matching asset {asset_name} has no browser_download_url")
 
     version = normalize_version(tag)
+    date = release_date(release, tag)
     rpm_release = "1%{?dist}"
 
     text = SPEC_FILE.read_text(encoding="utf-8")
@@ -134,6 +161,7 @@ def main() -> None:
         and current_version
         and current_version.group(1) == version
     ):
+        update_metainfo(version, date)
         print(f"Already current: {tag} ({asset_name})")
         return
 
@@ -142,6 +170,7 @@ def main() -> None:
     updated = replace_line(updated, "Source0", source_url)
 
     SPEC_FILE.write_text(updated, encoding="utf-8", newline="\n")
+    update_metainfo(version, date)
     print(f"Updated {SPEC_FILE} to {tag}")
     print(f"Asset: {asset_name}")
 

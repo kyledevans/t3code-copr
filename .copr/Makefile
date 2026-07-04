@@ -20,6 +20,7 @@ srpm:
 	  curl -fL "$$source0" -o "$(SOURCES_DIR)/$$(basename "$$source0")"
 	cp "$(REPO_ROOT)/t3code-wrapper.sh" "$(SOURCES_DIR)/"
 	cp "$(REPO_ROOT)/t3code.desktop" "$(SOURCES_DIR)/"
+	cp "$(REPO_ROOT)/io.github.pingdotgg.t3code.metainfo.xml" "$(SOURCES_DIR)/"
 	cp "$(REPO_ROOT)/LICENSE" "$(SOURCES_DIR)/"
 	cp "$(REPO_ROOT)/README.md" "$(SOURCES_DIR)/"
 	rpmbuild -bs \

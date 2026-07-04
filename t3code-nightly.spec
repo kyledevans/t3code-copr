@@ -1,6 +1,6 @@
 Name:           t3code-nightly
 Version:        0.0.29~nightly.20260703.720
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unofficial RPM wrapper for the T3 Code nightly AppImage
 
 License:        MIT AND LicenseRef-Upstream-T3Code
@@ -12,12 +12,14 @@ Source1:        t3code-wrapper.sh
 Source2:        t3code.desktop
 Source3:        LICENSE
 Source4:        README.md
+Source5:        io.github.pingdotgg.t3code.metainfo.xml
 
 # The upstream AppImage is x86_64-only. Use ExclusiveArch instead of
 # BuildArch: x86_64 so Copr can create the SRPM in its source-build
 # environment and then build the binary RPM only for x86_64 chroots.
 ExclusiveArch:  x86_64
 BuildRequires:  desktop-file-utils
+BuildRequires:  appstream
 Requires:       fuse-libs
 
 # AppImages are self-contained ELF payloads. Fedora's normal brp strip scripts
@@ -50,6 +52,7 @@ install -Dpm0755 %{SOURCE1} %{buildroot}%{_bindir}/t3code
 install -Dpm0644 %{SOURCE2} %{buildroot}%{_datadir}/applications/t3code.desktop
 install -Dpm0644 %{SOURCE3} %{buildroot}%{_licensedir}/%{name}/LICENSE
 install -Dpm0644 %{SOURCE4} %{buildroot}%{_docdir}/%{name}/README.md
+install -Dpm0644 %{SOURCE5} %{buildroot}%{_datadir}/metainfo/io.github.pingdotgg.t3code.metainfo.xml
 
 # Extract the application icon from the AppImage at build time so this
 # repository does not need to vendor an upstream image asset with unclear terms.
@@ -70,6 +73,7 @@ rm -rf squashfs-root
 test -f %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/t3code.png
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/t3code.desktop
+appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/io.github.pingdotgg.t3code.metainfo.xml
 
 %files
 %license %{_licensedir}/%{name}/LICENSE
@@ -77,9 +81,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/t3code.desktop
 /opt/t3code/T3Code.AppImage
 %{_bindir}/t3code
 %{_datadir}/applications/t3code.desktop
+%{_datadir}/metainfo/io.github.pingdotgg.t3code.metainfo.xml
 %{_datadir}/icons/hicolor/512x512/apps/t3code.png
 
 %changelog
+* Sat Jul 04 2026 Kyle Evans <kyledevans@users.noreply.github.com> - 0.0.29~nightly.20260703.720-4
+- Add AppStream metadata so software centers can identify T3 Code as an application.
+
 * Sat Jul 04 2026 Kyle Evans <kyledevans@users.noreply.github.com> - 0.0.29~nightly.20260703.720-3
 - Require fuse-libs so the AppImage can load libfuse.so.2 at runtime.
 
