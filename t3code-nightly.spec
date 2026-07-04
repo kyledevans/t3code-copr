@@ -1,6 +1,6 @@
 Name:           t3code-nightly
 Version:        0.0.29~nightly.20260703.720
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unofficial RPM wrapper for the T3 Code nightly AppImage
 
 License:        MIT AND LicenseRef-Upstream-T3Code
@@ -18,6 +18,15 @@ Source4:        README.md
 # environment and then build the binary RPM only for x86_64 chroots.
 ExclusiveArch:  x86_64
 BuildRequires:  desktop-file-utils
+
+# AppImages are self-contained ELF payloads. Fedora's normal brp strip scripts
+# can treat the AppImage launcher as a regular ELF binary and strip off the
+# embedded filesystem, producing a tiny broken RPM. Keep the upstream artifact
+# byte-for-byte intact and avoid dependency/provides scanning inside it.
+%global debug_package %{nil}
+%global __strip /bin/true
+%global __requires_exclude_from ^/opt/t3code/T3Code\\.AppImage$
+%global __provides_exclude_from ^/opt/t3code/T3Code\\.AppImage$
 
 %description
 T3 Code nightly packaged as an unofficial Fedora RPM wrapper around the
@@ -70,5 +79,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/t3code.desktop
 %{_datadir}/icons/hicolor/512x512/apps/t3code.png
 
 %changelog
+* Sat Jul 04 2026 Kyle Evans <kyledevans@users.noreply.github.com> - 0.0.29~nightly.20260703.720-2
+- Preserve the upstream AppImage during RPM post-processing.
+
 * Sat Jul 04 2026 Kyle Evans <kyledevans@users.noreply.github.com> - 0.0.29~nightly.20260703.720-1
 - Initial wrapper package for upstream T3 Code nightly AppImage.
