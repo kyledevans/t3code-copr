@@ -2,6 +2,46 @@
 
 Unofficial Fedora/Copr wrapper package for T3 Code nightly.
 
+## Install on Fedora
+
+This repo is already wired to the Copr project
+`kyledevans/t3code-nightly`. On a Fedora x86_64 machine, install T3 Code
+nightly with:
+
+```bash
+sudo dnf install dnf-plugins-core
+sudo dnf copr enable kyledevans/t3code-nightly
+sudo dnf install t3code-nightly
+```
+
+Launch it from GNOME as **T3 Code**, or from a terminal:
+
+```bash
+t3code
+```
+
+Update it through the normal DNF flow:
+
+```bash
+sudo dnf upgrade
+```
+
+If the Copr repo was enabled before a new build published, refresh metadata:
+
+```bash
+sudo dnf clean metadata
+sudo dnf install t3code-nightly
+```
+
+Quick validation:
+
+```bash
+rpm -ql t3code-nightly
+test -x /opt/t3code/T3Code.AppImage
+test -x /usr/bin/t3code
+t3code
+```
+
 This repository packages the upstream Linux x64 AppImage from
 [`pingdotgg/t3code`](https://github.com/pingdotgg/t3code) as an RPM named
 `t3code-nightly`. It does not build T3 Code from source and does not vendor the
