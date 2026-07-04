@@ -1,0 +1,4 @@
+*.AppImage
+*.rpm
+*.src.rpm
+/rpmbuild/

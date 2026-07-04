@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=T3 Code
+Comment=GUI for coding agents
+Exec=t3code
+Icon=t3code
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupWMClass=T3Code
