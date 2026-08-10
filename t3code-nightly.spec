@@ -1,6 +1,6 @@
 Name:           t3code-nightly
 Version:        0.0.34~nightly.20260810.1061
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unofficial RPM wrapper for the T3 Code nightly AppImage
 
 License:        MIT AND LicenseRef-Upstream-T3Code
@@ -85,6 +85,9 @@ appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/io.github.pingdo
 %{_datadir}/icons/hicolor/512x512/apps/t3code.png
 
 %changelog
+* Mon Aug 10 2026 Kyle Evans <kyledevans@users.noreply.github.com> - 0.0.34~nightly.20260810.1061-2
+- Associate the AppStream component explicitly with the t3code-nightly RPM.
+
 * Sat Jul 04 2026 Kyle Evans <kyledevans@users.noreply.github.com> - 0.0.29~nightly.20260703.720-5
 - Disable the bundled AppImage updater by default so DNF owns application updates.
 
