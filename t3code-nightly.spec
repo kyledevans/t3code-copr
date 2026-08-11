@@ -1,13 +1,13 @@
 Name:           t3code-nightly
-Version:        0.0.34~nightly.20260810.1061
-Release:        2%{?dist}
+Version:        0.0.34~nightly.20260811.1063
+Release:        1%{?dist}
 Summary:        Unofficial RPM wrapper for the T3 Code nightly AppImage
 
 License:        MIT AND LicenseRef-Upstream-T3Code
 URL:            https://github.com/pingdotgg/t3code
 # This package intentionally wraps the upstream AppImage. Do not replace this
 # with a "latest" URL: the pinned release URL keeps each RPM build auditable.
-Source0:        https://github.com/pingdotgg/t3code/releases/download/v0.0.34-nightly.20260810.1061/T3-Code-0.0.34-nightly.20260810.1061-x86_64.AppImage
+Source0:        https://github.com/pingdotgg/t3code/releases/download/v0.0.34-nightly.20260811.1063/T3-Code-0.0.34-nightly.20260811.1063-x86_64.AppImage
 Source1:        t3code-wrapper.sh
 Source2:        t3code.desktop
 Source3:        LICENSE
