@@ -1,6 +1,6 @@
 Name:           t3code-nightly
 Version:        0.0.41~nightly.20260910.1486
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unofficial RPM wrapper for the T3 Code nightly AppImage
 
 License:        MIT AND LicenseRef-Upstream-T3Code
@@ -9,10 +9,10 @@ URL:            https://github.com/pingdotgg/t3code
 # with a "latest" URL: the pinned release URL keeps each RPM build auditable.
 Source0:        https://github.com/pingdotgg/t3code/releases/download/v0.0.41-nightly.20260910.1486/T3-Code-0.0.41-nightly.20260910.1486-x86_64.AppImage
 Source1:        t3code-wrapper.sh
-Source2:        t3code.desktop
+Source2:        com.t3tools.T3Code.desktop
 Source3:        LICENSE
 Source4:        README.md
-Source5:        io.github.pingdotgg.t3code.metainfo.xml
+Source5:        com.t3tools.T3Code.metainfo.xml
 
 # The upstream AppImage is x86_64-only. Use ExclusiveArch instead of
 # BuildArch: x86_64 so Copr can create the SRPM in its source-build
@@ -49,10 +49,10 @@ integration files for GNOME and other freedesktop.org-compatible desktops.
 %install
 install -Dpm0755 %{SOURCE0} %{buildroot}/opt/t3code/T3Code.AppImage
 install -Dpm0755 %{SOURCE1} %{buildroot}%{_bindir}/t3code
-install -Dpm0644 %{SOURCE2} %{buildroot}%{_datadir}/applications/t3code.desktop
+install -Dpm0644 %{SOURCE2} %{buildroot}%{_datadir}/applications/com.t3tools.T3Code.desktop
 install -Dpm0644 %{SOURCE3} %{buildroot}%{_licensedir}/%{name}/LICENSE
 install -Dpm0644 %{SOURCE4} %{buildroot}%{_docdir}/%{name}/README.md
-install -Dpm0644 %{SOURCE5} %{buildroot}%{_datadir}/metainfo/io.github.pingdotgg.t3code.metainfo.xml
+install -Dpm0644 %{SOURCE5} %{buildroot}%{_datadir}/metainfo/com.t3tools.T3Code.metainfo.xml
 
 # Extract the application icon from the AppImage at build time so this
 # repository does not need to vendor an upstream image asset with unclear terms.
@@ -72,19 +72,23 @@ rm -rf squashfs-root
 
 test -f %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/t3code.png
 
-desktop-file-validate %{buildroot}%{_datadir}/applications/t3code.desktop
-appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/io.github.pingdotgg.t3code.metainfo.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/com.t3tools.T3Code.desktop
+appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/com.t3tools.T3Code.metainfo.xml
 
 %files
 %license %{_licensedir}/%{name}/LICENSE
 %doc %{_docdir}/%{name}/README.md
 /opt/t3code/T3Code.AppImage
 %{_bindir}/t3code
-%{_datadir}/applications/t3code.desktop
-%{_datadir}/metainfo/io.github.pingdotgg.t3code.metainfo.xml
+%{_datadir}/applications/com.t3tools.T3Code.desktop
+%{_datadir}/metainfo/com.t3tools.T3Code.metainfo.xml
 %{_datadir}/icons/hicolor/512x512/apps/t3code.png
 
 %changelog
+* Thu Sep 10 2026 Kyle Evans <kyledevans@users.noreply.github.com> - 0.0.41~nightly.20260910.1486-2
+- Align desktop and AppStream IDs with upstream com.t3tools.T3Code.
+- Match the upstream window class and declare t3code URL handling.
+
 * Sat Jul 04 2026 Kyle Evans <kyledevans@users.noreply.github.com> - 0.0.29~nightly.20260703.720-5
 - Disable the bundled AppImage updater by default so DNF owns application updates.
 

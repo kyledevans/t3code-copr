@@ -67,8 +67,8 @@ The RPM installs:
 ```text
 /opt/t3code/T3Code.AppImage
 /usr/bin/t3code
-/usr/share/applications/t3code.desktop
-/usr/share/metainfo/io.github.pingdotgg.t3code.metainfo.xml
+/usr/share/applications/com.t3tools.T3Code.desktop
+/usr/share/metainfo/com.t3tools.T3Code.metainfo.xml
 /usr/share/icons/hicolor/512x512/apps/t3code.png
 ```
 
@@ -90,7 +90,7 @@ Create a source RPM:
 ```bash
 rpmdev-setuptree
 spectool -g -R t3code-nightly.spec
-cp t3code-wrapper.sh t3code.desktop io.github.pingdotgg.t3code.metainfo.xml LICENSE README.md ~/rpmbuild/SOURCES/
+cp t3code-wrapper.sh com.t3tools.T3Code.desktop com.t3tools.T3Code.metainfo.xml LICENSE README.md ~/rpmbuild/SOURCES/
 rpmbuild -bs t3code-nightly.spec
 ```
 
@@ -116,8 +116,8 @@ Verify the installed files:
 rpm -ql t3code-nightly
 test -x /opt/t3code/T3Code.AppImage
 test -x /usr/bin/t3code
-desktop-file-validate /usr/share/applications/t3code.desktop
-appstreamcli validate --no-net /usr/share/metainfo/io.github.pingdotgg.t3code.metainfo.xml
+desktop-file-validate /usr/share/applications/com.t3tools.T3Code.desktop
+appstreamcli validate --no-net /usr/share/metainfo/com.t3tools.T3Code.metainfo.xml
 t3code
 ```
 

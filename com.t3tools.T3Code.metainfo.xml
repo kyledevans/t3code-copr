@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>io.github.pingdotgg.t3code</id>
+  <id>com.t3tools.T3Code</id>
   <metadata_license>MIT</metadata_license>
   <project_license>LicenseRef-Upstream-T3Code</project_license>
   <name>T3 Code</name>
@@ -15,7 +15,7 @@
   <developer id="io.github.pingdotgg">
     <name>Ping Labs</name>
   </developer>
-  <launchable type="desktop-id">t3code.desktop</launchable>
+  <launchable type="desktop-id">com.t3tools.T3Code.desktop</launchable>
   <provides>
     <binary>t3code</binary>
   </provides>

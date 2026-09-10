@@ -24,7 +24,7 @@ from pathlib import Path
 
 REPO = "pingdotgg/t3code"
 SPEC_FILE = Path("t3code-nightly.spec")
-METAINFO_FILE = Path("io.github.pingdotgg.t3code.metainfo.xml")
+METAINFO_FILE = Path("com.t3tools.T3Code.metainfo.xml")
 API_URL = f"https://api.github.com/repos/{REPO}/releases?per_page=50"
 
 
